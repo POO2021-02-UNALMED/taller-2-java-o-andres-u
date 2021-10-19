@@ -1,5 +1,8 @@
 package test;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class Auto {
   String modelo;
   int precio;
@@ -11,7 +14,7 @@ public class Auto {
   static int cantidadCreados;
 
   int cantidadAsientos() {
-    return asientos.length;
+    return (int) Arrays.stream(asientos).filter(Objects::nonNull).count();
   }
 
   String verificarIntegridad() {
