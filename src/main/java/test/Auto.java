@@ -2,6 +2,7 @@ package test;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class Auto {
   String modelo;
@@ -18,13 +19,13 @@ public class Auto {
   }
 
   String verificarIntegridad() {
-    if (this.registro == this.motor.registro) {
-      for (Asiento asiento: asientos) {
-        if (asiento != null && this.registro != asiento.registro) {
-          return "Las piezas no son originales";
-        }
-      }
-      return "El auto es original";
+    boolean match = Arrays
+        .stream(asientos)
+        .filter(Objects::nonNull)
+        .allMatch(asiento -> asiento.registro == this.registro);
+
+    if (match && this.registro == this.motor.registro) {
+      return "Auto original";
     } else {
       return "Las piezas no son originales";
     }
